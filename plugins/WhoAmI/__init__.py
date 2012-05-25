@@ -16,10 +16,14 @@ from siriObjects.contactObjects import *
 class meCard(Plugin):
 	
 	@register("en-US", "(Who am I.*)|(What's my name.*)")
+	@register("es-MX", "(Cual es mi nombre.*)|(Como me llamo.*)|(Quien soy.*)")
+	
 	def mePerson(self, speech, language):
-		
-		self.say("You're {0}, that's what you told me. anyway.".format(self.user_name()))		
-		
+		if language == 'en-US':
+			self.say("You're {0}, that's what you told me. anyway.".format(self.user_name()))		
+		elif language == 'es-MX':
+			self.say("Tu eres {0}, eso es lo que me dijiste.".format(self.user_name()))	
+			
 		person_search = PersonSearch(self.refId)
 		person_search.scope = PersonSearch.ScopeLocalValue
 		person_search.me = "true"        
